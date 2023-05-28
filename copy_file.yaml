@@ -1,0 +1,7 @@
+- name: Copy a file to remote server
+  hosts: appserver
+  tasks:
+    - name: Copy a file to remote server
+      copy:
+        src: /tmp/sample.txt
+        dest: /tmp/
