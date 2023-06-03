@@ -1,0 +1,9 @@
+- name: Copy a file to remote server
+  hosts: appserver
+  tasks:
+    - name: Copy a file to remote server
+      yum:
+        name: "*"
+        state: latest
+        disablerepo: "kubernetes"
+ 
