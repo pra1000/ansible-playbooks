@@ -2,7 +2,7 @@
   hosts: appserver
   tasks:
     - name: Copy a file to remote server
-      yum:
+      dnf:
         name: "*"
         state: latest
         disablerepo: "kubernetes"
