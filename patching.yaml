@@ -1,11 +1,10 @@
 - name: Patch remote server
   hosts: appserver
+  become_user: root
+  become: yes
   tasks:
     - name: Copy a file to remote server
       dnf:
         name: "*"
         state: latest
         disablerepo: kubernetes
-        become: yes
-        become_user: root
- 
