@@ -1,4 +1,4 @@
-- name: Copy a file to remote server
+- name: Patch remote server
   hosts: appserver
   tasks:
     - name: Copy a file to remote server
@@ -6,4 +6,6 @@
         name: "*"
         state: latest
         disablerepo: "kubernetes"
+        become: yes
+        become_user: root
  
