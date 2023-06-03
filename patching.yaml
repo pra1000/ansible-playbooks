@@ -5,7 +5,7 @@
       dnf:
         name: "*"
         state: latest
-        disablerepo: "kubernetes"
+        disablerepo: kubernetes
         become: yes
         become_user: root
  
