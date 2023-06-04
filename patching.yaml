@@ -1,5 +1,5 @@
 - name: Patch remote server
-  hosts: appserver
+  hosts: aws_servers
   become_user: root
   become: yes
   tasks:
