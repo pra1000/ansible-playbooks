@@ -3,8 +3,38 @@
   become_user: root
   become: yes
   tasks:
-    - name: Copy a file to remote server
+    - name: Take prechecks
+      copy:
+        src: /etc/{{ items }}
+        dest: /tmp/{{ items}}_bkp
+        with_items:
+          - fstab
+          - resolv.conf
+        remote_src: yes
+    - name: Patch the server
       dnf:
-        name: "bash-completion"
+        name: "*"
         state: latest
         disablerepo: kubernetes
+    - name: find out whether reboot needed or not
+      shell: needs-restarting -r; if [[ $(echo $?) == 1 ]]; then echo "reboot_needed"; else echo "reboot_not_needed"; fi
+      ignore_errors: true
+      register: reboot_required
+    - name: Reboot the system if it is needed
+      reboot:
+        msg: "Reboot initiated by Ansible"
+        reboot_timeout: 600
+        test_command: whoami
+      when: reboot_required.stdout == "reboot_needed"
+      register: reboot_started
+      ignore_errors: true
+    - name: Do Postchecks
+      copy:
+        src: /etc/{{ items }}
+        dest: /tmp/{{ items}}_bkp
+        with_items:
+          - fstab
+          - resolv.conf
+        remote_src: yes
+        check_mode: no
+        diff: yes
