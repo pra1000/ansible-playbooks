@@ -5,8 +5,8 @@
   tasks:
     - name: Take prechecks
       copy:
-        src: /etc/{{ items }}
-        dest: /tmp/{{ items }}_bkp
+        src: /etc/{{item}}
+        dest: /tmp/{{item}}_bkp
         remote_src: yes
       with_items:
         - fstab
