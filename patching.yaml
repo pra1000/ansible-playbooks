@@ -13,18 +13,23 @@
         - resolv.conf
     - name: Patch the server
       dnf:
-        name: "kernel.x86_64"
+        name: "*"
         state: latest
         disablerepo: kubernetes
     - name: find out whether reboot needed or not
-      shell: needs-restarting -r; if [[ $(echo $?) == 1 ]]; then echo "reboot_needed"; else echo "reboot_not_needed"; fi
-      ignore_errors: true
-      register: reboot_required
+      command: needs-restarting -r
+      register: result
+      ignore_errors: yes
     - name: Reboot the system if it is needed
       reboot:
         msg: "Reboot initiated by Ansible"
         reboot_timeout: 600
+        become: true
+        async: 30
+        poll: 0
         test_command: whoami
-      when: reboot_required.stdout == "reboot_needed"
-      register: reboot_started
-      ignore_errors: true
+      when: result.rc == 1
+    - name: Pausing to allow server to shutdown and terminate our SSH connection
+      pause: 
+        seconds: 30
+      when: result.rc == 1 
