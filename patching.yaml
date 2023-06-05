@@ -13,7 +13,7 @@
         - resolv.conf
     - name: Patch the server
       dnf:
-        name: "kernel"
+        name: "kernel.x86_64"
         state: latest
         disablerepo: kubernetes
     - name: find out whether reboot needed or not
