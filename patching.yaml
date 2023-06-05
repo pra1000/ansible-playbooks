@@ -28,13 +28,3 @@
       when: reboot_required.stdout == "reboot_needed"
       register: reboot_started
       ignore_errors: true
-    - name: Do Postchecks
-      copy:
-        src: /etc/{{item}}
-        dest: /tmp/{{item}}_bkp
-        remote_src: yes
-        check_mode: no
-        diff: yes
-      with_items:
-        - fstab
-        - resolv.conf
