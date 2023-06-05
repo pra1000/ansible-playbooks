@@ -1,5 +1,5 @@
 - name: Patch remote server
-  hosts: aws_servers
+  hosts: appserver
   become_user: root
   become: yes
   tasks:
@@ -25,13 +25,13 @@
         msg: "Reboot initiated by Ansible"
         reboot_timeout: 600
         test_command: whoami
-      when: reboot_required.stdout == "reboot_needed"
+      when: reboot_required.stdout == "reboot_not_needed"
       register: reboot_started
       ignore_errors: true
     - name: Do Postchecks
       copy:
-        src: /etc/{{ items }}
-        dest: /tmp/{{ items}}_bkp
+        src: /etc/{{item}}
+        dest: /tmp/{{item}}_bkp
         with_items:
           - fstab
           - resolv.conf
