@@ -5,12 +5,12 @@
   tasks:
     - name: Take prechecks
       copy:
-        src: { items }
-        dest: /tmp
-        with_items:
-          - /etc/fstab
-          - /etc/resolv.conf
+        src: /etc/{{ items }}
+        dest: /tmp/{{ items }}_bkp
         remote_src: yes
+      with_items:
+        - fstab
+        - resolv.conf
     - name: Patch the server
       dnf:
         name: "*"
