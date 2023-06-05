@@ -25,7 +25,7 @@
         msg: "Reboot initiated by Ansible"
         reboot_timeout: 600
         test_command: whoami
-      when: reboot_required.stdout == "reboot_not_needed"
+      when: reboot_required.stdout == "reboot_needed"
       register: reboot_started
       ignore_errors: true
     - name: Do Postchecks
