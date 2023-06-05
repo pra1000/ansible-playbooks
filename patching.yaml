@@ -5,7 +5,7 @@
   tasks:
     - name: Take prechecks
       copy:
-        src: {{ items }}
+        src: { items }
         dest: /tmp
         with_items:
           - /etc/fstab
