@@ -28,8 +28,8 @@
         async: 30
         poll: 0
         test_command: whoami
-      when: result.rc == 1
+      when: result.rc == 0
     - name: Pausing to allow server to shutdown and terminate our SSH connection
       pause: 
         seconds: 30
-      when: result.rc == 1 
+      when: result.rc == 0
