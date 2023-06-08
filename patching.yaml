@@ -32,4 +32,4 @@
     - name: Pausing to allow server to shutdown and terminate our SSH connection
       pause: 
         seconds: 30
-      #when: result.rc == 1 
+      when: result.rc == 1 
