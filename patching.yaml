@@ -21,7 +21,12 @@
       shell: needs-restarting -r
       register: result
       ignore_errors: yes
-    - name: Reboot the system if it is needed
+      failed_when: false
+      changed_when: result.rc != 0
+      notify:
+        - Reboot server
+  handlers:
+    - name: Reboot server
       reboot:
         msg: "Reboot initiated by Ansible"
         reboot_timeout: 600
@@ -29,8 +34,3 @@
         async: 30
         poll: 0
         test_command: whoami
-      when: result.rc != 0
-    - name: Pausing to allow server to shutdown and terminate our SSH connection
-      pause: 
-        seconds: 30
-      when: result.rc != 0
