@@ -27,10 +27,8 @@
         - Reboot server
   handlers:
     - name: Reboot server
+      become: true
       reboot:
         msg: "Reboot initiated by Ansible"
         reboot_timeout: 600
-        become: true
-        async: 30
-        poll: 0
         test_command: whoami
