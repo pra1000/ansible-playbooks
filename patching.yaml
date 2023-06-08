@@ -17,7 +17,7 @@
         state: latest
         disablerepo: kubernetes
     - name: find out whether reboot needed or not
-      command: needs-restarting -r
+      shell: needs-restarting -r;echo $?
       register: result
       ignore_errors: yes
     - name: Reboot the system if it is needed
