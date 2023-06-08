@@ -30,5 +30,5 @@
       become: true
       reboot:
         msg: "Reboot initiated by Ansible"
-        reboot_timeout: 600
+        reboot_timeout: 300
         test_command: whoami
