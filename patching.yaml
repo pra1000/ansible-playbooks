@@ -15,7 +15,6 @@
       yum:
         name: "*"
         state: latest
-        disablerepo: kubernetes
     - name: find out whether reboot needed or not
       become: true
       shell: needs-restarting -r
