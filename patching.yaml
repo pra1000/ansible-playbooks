@@ -12,7 +12,7 @@
         - fstab
         - resolv.conf
     - name: Patch the server
-      dnf:
+      yum:
         name: "*"
         state: latest
         disablerepo: kubernetes
